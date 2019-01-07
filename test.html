@@ -1,0 +1,263 @@
+<!doctype html>
+<html id="main">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="manifest" href="site.webmanifest">
+        <link rel="apple-touch-icon" href="icon.png">
+        <!-- Place favicon.ico in the root directory -->
+
+
+  
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+        <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script> -->
+   		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+   		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+   		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+   		<!------ Include the above in your HEAD tag ---------->
+
+   		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+   		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+   		<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+   		<!------ Include the above in your HEAD tag ---------->
+    </head>
+    <body>
+        <!--[if lte IE 9]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+        <![endif]-->
+
+        <!-- Add your site or application content here -->
+        <script type="text/javascript">
+        	
+        </script>
+        <script type="text/javascript">
+        	var noteAccordion = document.createElement('div');
+			noteAccordion.className = 'panel-group';	
+			noteAccordion.id = 'dynamicAccordion';
+			function generateAccordion(note){
+
+				var accordion = document.createElement('div');
+					accordion.className = 'panel-group';
+					accordion.id = note.id;
+
+				var accordionPanel = document.createElement('div');
+					accordionPanel.className = 'panel panel-default';
+			
+				var accordionPanelHeading = document.createElement('div');
+					accordionPanelHeading.className = 'panel-heading';
+
+				var accordionPanelHeadingTitle = document.createElement('h4');
+					accordionPanelHeadingTitle.className = 'panel-title';
+
+				var accordionPanelHeadingTitleLink = document.createElement('a');
+					accordionPanelHeadingTitleLink.setAttribute('data-toggle', 'collapse');
+					accordionPanelHeadingTitleLink.setAttribute('data-parent', ('#'+note.id));
+					accordionPanelHeadingTitleLink.setAttribute('href', ('#'+note.href));
+					accordionPanelHeadingTitleLink.innerHTML = note.title;
+				
+				accordionPanelHeadingTitle.appendChild(accordionPanelHeadingTitleLink);
+				accordionPanelHeading.appendChild(accordionPanelHeadingTitle);
+
+				var panelBodyWrapper = document.createElement('div');
+					panelBodyWrapper.className = 'panel-collapse collapse';
+					panelBodyWrapper.id = note.href;
+
+				var panelBody = document.createElement('div');
+					panelBody.className = 'panel-body';
+					panelBody.innerHTML = note.body;
+
+				if(note.children.length != null){
+					for (var i = 0; i < note.children.length; i++) {
+						panelBody.appendChild(generateAccordion(note.children[i]));
+					}
+				}
+
+				panelBodyWrapper.appendChild(panelBody);
+
+				accordionPanel.appendChild(accordionPanelHeading);
+				accordionPanel.appendChild(panelBodyWrapper);
+
+				accordion.appendChild(accordionPanel);
+
+				// var div = document.createElement('div');
+	   //      		div.className = 'form-group';
+	   //      	var label = document.createElement('label');
+		  //       	label.className = 'col-sm-2 control-label';
+		  //       	label.innerHTML = 'Comments';
+		  //       	label.for = 'inputText';
+	   //      	var div1 = document.createElement('div');
+	   //      		div1.className = 'col-sm-10';
+	   //      	var commentText = document.createElement('textarea');
+		  //       	commentText.className = 'form-control';
+		  //       	commentText.id = 'inputText';
+		  //       	commentText.rows = '3';
+		  //       	commentText.placeholder = 'Write your comments';
+	        	
+	   //      	div.appendChild(label);
+	   //      	div1.appendChild(commentText);
+	   //      	div.appendChild(div1);
+
+	   //      	accordion.appendChild(div);
+	        	
+				return accordion;
+			}	
+
+			
+        	var notes = [
+	        	{
+	        		href: 'href_note1', 
+	        		id: 'id_note1',
+	        		title: 'note1',
+	        		body: 'somethinghere id_note1 ',
+	        		children: [
+	        			{
+	        				href: 'href_note11', 
+	        				id: 'id_note11',
+	        				title: 'note1.1',
+	        				body: 'somethinghere id_note11',
+	        				children: [
+	        					{
+	        						href: 'href_note111', 
+	        						id: 'id_note111',
+	        						title: 'note1.1.1',
+	        						body: 'somethinghere id_note111',
+	        						children: []
+	        					}
+	        				]
+	        			},
+	        			{
+	        				href: 'href_note12', 
+	        				id: 'id_note12',
+	        				title: 'note1.2',
+	        				body: 'somethinghere id_note12',
+	        				children: [
+	        					{
+	        						href: 'href_note121', 
+	        						id: 'id_note121',
+	        						title: 'note1.2.1',
+	        						body: 'somethinghere id_note121',
+	        						children: []
+	        					}
+	        				]
+	        			}
+	        		]
+	        	},
+
+	        	{
+	        		href: 'href_note2', 
+	        		id: 'id_note2',
+	        		title: 'note2',
+	        		body: 'somethinghere id_note2',
+	        		children: [
+	        			{
+	        				href: 'href_note21', 
+	        				id: 'id_note21',
+	        				title: 'note2.1',
+	        				body: 'somethinghere id_note21',
+	        				children: [
+	        					{
+	        						href: 'href_note211', 
+	        						id: 'id_note211',
+	        						title: 'note2.1.1',
+	        						body: 'somethinghere id_note211',
+	        						children: []
+	        					}
+	        				]
+	        			},
+	        			{
+	        				href: 'href_note22', 
+	        				id: 'id_note22',
+	        				title: 'note2.2',
+	        				body: 'somethinghere id_note22',
+	        				children: [
+	        					{
+	        						href: 'href_note221', 
+	        						id: 'id_note221',
+	        						title: 'note2.2.1',
+	        						body: 'somethinghere id_note221',
+	        						children: []
+	        					}
+	        				]
+	        			}
+	        		]
+	        	},
+	        	{
+	        		href: 'href_note3', 
+	        		id: 'id_note3',
+	        		title: 'note3',
+	        		body: 'somethinghere id_note3',
+	        		children: [
+	        			{
+	        				href: 'href_note31', 
+	        				id: 'id_note31',
+	        				title: 'note3.1',
+	        				body: 'somethinghere id_note31',
+	        				children: [
+	        					{
+	        						href: 'href_note311', 
+	        						id: 'id_note311',
+	        						title: 'note3.1.1',
+	        						body: 'somethinghere id_note311',
+	        						children: []
+	        					}
+	        				]
+	        			},
+	        			{
+	        				href: 'href_note32', 
+	        				id: 'id_note32',
+	        				title: 'note3.2',
+	        				body: 'somethinghere id_note32',
+	        				children: [
+	        					{
+	        						href: 'href_note321', 
+	        						id: 'id_note321',
+	        						title: 'note3.2.1',
+	        						body: 'somethinghere id_note221',
+	        						children: []
+	        					}
+	        				]
+	        			}
+	        		]
+	        	}
+        	];
+        	
+        	
+
+        	for (var j = 0; j < notes.length; j++) {
+        		document.body.appendChild(generateAccordion(notes[j]));
+        	}
+
+			//document.body.appendChild(generateAccordion(notes[i]));
+			//generateNotes(notes, "dynamicAccordion");
+
+
+        	// var div = document.createElement('div');
+        	// div.className = 'form-group';
+        	// var label = document.createElement('label');
+        	// label.className = 'col-sm-2 control-label';
+        	// label.innerHTML = 'Comments';
+        	// label.for = 'inputText';
+        	// var div1 = document.createElement('div');
+        	// div1.className = 'col-sm-10';
+        	// var commentText = document.createElement('textarea');
+        	// commentText.className = 'form-control';
+        	// commentText.id = 'inputText';
+        	// commentText.rows = '3';
+        	// commentText.placeholder = 'Write your comments';
+        	// div.appendChild(label);
+        	// div1.appendChild(commentText);
+        	// div.appendChild(div1);
+
+        	// document.body.appendChild(div);
+
+
+        	
+        </script>
+    </body>
+</html>
